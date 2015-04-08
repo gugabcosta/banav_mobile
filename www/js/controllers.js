@@ -22,20 +22,7 @@ angular.module('starter.controllers', [])
    			$scope.navio_classe = data;
   		}); 
 
-  		$http.get('http://192.168.0.40:3000/relatorio').success(function(data) {
-   			$scope.relatorio = data;
-   			$scope.labels = [];
-   			$scope.data = [];
-   			$scope.type = 'PolarArea';
-   			for(var key in $scope.relatorio){
-   				var obj = $scope.relatorio[key];
-   				if(obj.nome !== 'Total' ){
-	   				$scope.labels.push(obj.nome);
-	   				$scope.data.push(obj.sum);
-   				}
-   			}
-
-  		}); 		
+  		$scope.funcaorelatorio($scope.datarel);		
 
 
   		
@@ -54,7 +41,7 @@ angular.module('starter.controllers', [])
    		 	//_url = 'http://192.168.0.40:3000/relatoriomensal/'
    		 //} 
    		 
-   	  	$http.get('http://192.168.0.49:3000/relatorio/' + _dataFormatada).success(function(data) {
+   	  	$http.get(_url + _dataFormatada).success(function(data) {
    			$scope.relatorio = data;
    			$scope.labels = [];
    			$scope.data = [];
