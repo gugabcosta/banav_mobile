@@ -1,0 +1,94 @@
+<ion-view view-title="Painel de controle" ng-init="init()">
+  <form>
+  <ion-content class="padding">
+   <!-- <div class="list card">
+      
+
+
+      <div class="item item-divider">Navio</div>
+      <div class="item item-body">
+        <div>
+            <div ng-repeat="r in resumo2">
+            {{r.id}} - {{r.nome}} 
+            </div>       
+        </div>
+      </div>
+    </div>
+
+    <div class="list card">
+      <div class="item item-divider">Classe</div>
+      <div class="item item-body">
+        <div>
+            <div ng-repeat="r in classes">
+            {{r.id}} - {{r.nome}} 
+            </div>       
+        </div>
+      </div>
+    </div>
+
+      <div class="list card">
+      <div class="item item-divider">Portos</div>
+      <div class="item item-body">
+        <div>
+            <div ng-repeat="r in portos">
+            {{r.id}} - {{r.nome}} 
+            </div>       
+        </div>
+      </div>
+    </div>    
+
+      <div class="list card">
+      <div class="item item-divider">Navio - Classe</div>
+      <div class="item item-body">
+        <div>
+            <div ng-repeat="r in navio_classe">
+            {{r.navio}} - {{r.classe}} - {{r.quantidade}}
+            </div>       
+        </div>
+      </div>
+    </div> -->
+      <label class="item item-input">
+        <span class="input-label">Date</span>
+        <input type="date" ng-model="datarel">
+      </label>
+      <button class="button button-positive" ng-click="funcaorelatorio(datarel, false)">
+        Relatorio
+      </button>
+      <div class="list card">
+      <div class="item item-divider">Relatorio</div>
+      <div class="item item-body">
+        <div>
+            <div ng-repeat="r in relatorio">
+            {{r.nome}} - {{r.sum |currency:'R$'}} 
+            </div>       
+        </div>
+      </div>
+    </div>    
+
+
+<canvas id="polar-area" class="chart chart-pie" data="data"
+  labels="labels" legend="true"></canvas> 
+
+
+
+
+
+    <!--<div class="list card">
+      <div class="item item-divider">Saúde</div>
+      <div class="item item-body">
+        <div>
+          Hoje é sexta-feira santa!
+        </div>
+      </div>
+    </div>-->
+    <!--<div class="list card">
+      <div class="item item-divider">Upcoming</div>
+      <div class="item item-body">
+        <div>
+          You have <b>29</b> meetings on your calendar tomorrow.
+        </div>
+      </div>
+    </div>-->
+  </ion-content>
+</form>
+</ion-view>
