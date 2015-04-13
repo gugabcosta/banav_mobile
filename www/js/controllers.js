@@ -1,6 +1,7 @@
 angular.module('starter.controllers', [])
 
-.controller('DashCtrl', ['$http', '$scope', '$window', '$cordovaDatePicker',function($http,$scope, $window, $cordovaDatePicker) {
+.controller('DashCtrl', ['$http', '$scope', '$window', '$cordovaDatePicker','$ionicLoading', '$ionicPopup',
+  function($http,$scope, $window, $cordovaDatePicker,$ionicLoading, $ionicPopup) {
 
 
    $scope.init = function(){
@@ -30,12 +31,14 @@ angular.module('starter.controllers', [])
         //$scope.data = [300, 500, 100];
    };
    	$scope.funcaorelatorio = function(_dataRel){
-
+      $ionicLoading.show({
+        template: 'Carregando...'
+      });
    		$scope.datarel = _dataRel;
    		var _dataFormatada = $scope.datarel.getUTCFullYear() + '-' +
    		 ("0" + ($scope.datarel.getMonth() + 1)).slice(-2) + '-' + ("0" + $scope.datarel.getDate()).slice(-2);
 
-   		var _url = 'http://192.168.0.49:3000/relatorio/';
+   		var _url = 'http://192.168.0.29:3000/relatorio/';
    		 //if(_mensal){
    		 	//_dataFormatada = _dataFormatada 
    		 	//_url = 'http://192.168.0.40:3000/relatoriomensal/'
@@ -53,8 +56,15 @@ angular.module('starter.controllers', [])
 	   				$scope.data.push(obj.sum);
    				}
    			}
-
-  		});
+        $ionicLoading.hide();
+  		}).
+      error(function(data, status, headers, config) { 
+        $ionicLoading.hide();
+        $ionicPopup.alert({
+          title: 'Erro no aplicativo',
+          template: 'Entre em contato com o administrador do sistema'
+        });
+      });
    };
 
 
