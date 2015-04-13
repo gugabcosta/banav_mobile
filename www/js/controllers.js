@@ -23,26 +23,33 @@ angular.module('starter.controllers', [])
    			$scope.navio_classe = data;
   		}); 
 
-  		$scope.funcaorelatorio($scope.datarel);		
+  		$scope.funcaorelatorio($scope.datarel, false);		
 
 
   		
   		//$scope.labels = ["Download Sales", "In-Store Sales", "Mail-Order Sales"];
         //$scope.data = [300, 500, 100];
    };
-   	$scope.funcaorelatorio = function(_dataRel){
+   	$scope.funcaorelatorio = function(_dataRel, _mensal){
+      
       $ionicLoading.show({
         template: 'Carregando...'
       });
    		$scope.datarel = _dataRel;
+      var _url = 'http://localhost:3000/';
    		var _dataFormatada = $scope.datarel.getUTCFullYear() + '-' +
-   		 ("0" + ($scope.datarel.getMonth() + 1)).slice(-2) + '-' + ("0" + $scope.datarel.getDate()).slice(-2);
+   		 ("0" + ($scope.datarel.getMonth() + 1)).slice(-2); 
 
-   		var _url = 'http://192.168.0.29:3000/relatorio/';
-   		 //if(_mensal){
-   		 	//_dataFormatada = _dataFormatada 
-   		 	//_url = 'http://192.168.0.40:3000/relatoriomensal/'
-   		 //} 
+      if(_mensal == true){
+        
+        _url = _url + 'relatoriomensal/';
+      }
+      else{
+        _dataFormatada = _dataFormatada + '-' + ("0" + $scope.datarel.getDate()).slice(-2);
+        _url = _url + 'relatorio/';
+      } 
+
+
    		 
    	  	$http.get(_url + _dataFormatada).success(function(data) {
    			$scope.relatorio = data;
