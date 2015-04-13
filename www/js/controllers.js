@@ -8,7 +8,7 @@ angular.module('starter.controllers', [])
 
    		$scope.datarel = new Date();
 
-   		$http.get('http://192.168.0.40:3000/navio').success(function(data) {
+   		/*s$http.get('http://192.168.0.40:3000/navio').success(function(data) {
    			$scope.resumo2 = data;
   		});
 
@@ -21,7 +21,7 @@ angular.module('starter.controllers', [])
 
   		$http.get('http://192.168.0.40:3000/navio_classe').success(function(data) {
    			$scope.navio_classe = data;
-  		}); 
+  		}); */
 
   		$scope.funcaorelatorio($scope.datarel, false);		
 
@@ -36,7 +36,7 @@ angular.module('starter.controllers', [])
         template: 'Carregando...'
       });
    		$scope.datarel = _dataRel;
-      var _url = 'http://localhost:3000/';
+      var _url = 'http://173.230.137.47:3000/';
    		var _dataFormatada = $scope.datarel.getUTCFullYear() + '-' +
    		 ("0" + ($scope.datarel.getMonth() + 1)).slice(-2); 
 
@@ -53,16 +53,29 @@ angular.module('starter.controllers', [])
    		 
    	  	$http.get(_url + _dataFormatada).success(function(data) {
    			$scope.relatorio = data;
-   			$scope.labels = [];
+   			
    			$scope.data = [];
    			$scope.type = 'PolarArea';
-   			for(var key in $scope.relatorio){
-   				var obj = $scope.relatorio[key];
-   				if(obj.nome !== 'Total' ){
-	   				$scope.labels.push(obj.nome);
-	   				$scope.data.push(obj.sum);
-   				}
-   			}
+        $scope.legenda = 'true';
+        $scope.hide = false;
+        if($scope.relatorio[0].sum !== null){
+          $scope.labels = [];
+     			for(var key in $scope.relatorio){
+     				var obj = $scope.relatorio[key];
+     				if(obj.nome !== 'Total' ){
+  	   				$scope.labels.push(obj.nome);
+  	   				$scope.data.push(obj.sum);
+     				}
+     			}
+        }
+        else{
+        $scope.relatorio = [];
+        $scope.labels = {};
+        $scope.data = [{}];
+        //$scope.type = '';
+        $scope.hide = true;
+        $scope.legenda = 'false';
+        }
         $ionicLoading.hide();
   		}).
       error(function(data, status, headers, config) { 
